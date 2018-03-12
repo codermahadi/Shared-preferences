@@ -10,10 +10,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText uname,password;
-    private Button sava,load;
+    private EditText uname, password;
+    private Button sava, load;
     private TextView result;
 
     @Override
@@ -44,22 +44,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String Upass = password.getText().toString();
 
 
-            if (username.equals("") && Upass.equals("")){
+            if (username.equals("") && Upass.equals("")) {
 
-                Toast.makeText(this,"Please Input Username and Password", Toast.LENGTH_LONG).show();
-            }else {
+                Toast.makeText(this, "Please Input Username and Password", Toast.LENGTH_LONG).show();
+            } else {
                 SharedPreferences sharedPreferences = getSharedPreferences("userDetails", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("UsernameKey", username);
                 editor.putString("PasswordKey", Upass);
                 editor.commit();
-                Toast.makeText(this,"Data Stored successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Data Stored successfully", Toast.LENGTH_LONG).show();
 
             }
 
-        }else if (view.getId() == R.id.load){
+        } else if (view.getId() == R.id.load) {
+            SharedPreferences sharedPreferences = getSharedPreferences("userDetails", Context.MODE_PRIVATE);
 
-        }else{
+            if (sharedPreferences.contains("UsernameKey") && sharedPreferences.contains("UsernameKey")) {
+
+                String username = sharedPreferences.getString("UsernameKey", "Username Not found!!");
+                String Upass = sharedPreferences.getString("PasswordKey", "Password Not found!!");
+                result.setText(username + "\n" + Upass);
+
+            }
+
+        } else {
 
         }
     }
